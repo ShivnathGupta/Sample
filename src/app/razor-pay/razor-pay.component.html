@@ -1,0 +1,76 @@
+<div class="container">
+  <form (ngSubmit)="handleRazorPay()" class="mt-5" [formGroup]="RazorPayForm">
+    <h1>Razor Pay</h1>
+    <h4>Pay &#x20B9;10</h4>
+    <a routerLink="/">
+      <i class="fa fa-arrow-left back float-right" aria-hidden="true"></i>
+    </a>
+    <div class="form-row">
+      <div class="form-group col-md-6">
+        <label htmlFor="inputEmail4">First Name</label>
+        <input type="text" class="form-control" name="firstName" formControlName="firstName" placeholder="First Name"
+          required />
+      </div>
+      <div class="form-group col-md-6">
+        <label htmlFor="inputPassword4">Last Name</label>
+        <input type="text" class="form-control" name="lastName" formControlName="lastName" placeholder="Last Name"
+          required />
+      </div>
+    </div>
+    <div class="form-group">
+      <label htmlFor="inputAddress">Email</label>
+      <input type="email" class="form-control" name="email" formControlName="email" placeholder="Email" required />
+    </div>
+
+    <div class="form-row">
+      <div class="form-group col-md-6">
+        <label htmlFor="inputCity">City</label>
+        <input type="text" class="form-control" name="city" formControlName="city" placeholder="City" required />
+      </div>
+      <div class="form-group col-md-4">
+        <label htmlFor="inputState">Country</label>
+        <select id="inputState" class="form-control" name="country" formControlName="country" placeholder="Country"
+          required>
+          <option>Country...</option>
+          <option value="INR">India</option>
+          <option value="USD">United States</option>
+        </select>
+      </div>
+      <div class="form-group col-md-2">
+        <label htmlFor="inputZip">Postal Code</label>
+        <input type="text" class="form-control" name="postalCode" formControlName="postalCode" placeholder="Postal Code"
+          required />
+      </div>
+    </div>
+
+    <div formArrayName="items">
+      <div class="row mb-2">
+        <div class="col">Sr. No.</div>
+        <div class="col">Name</div>
+        <div class="col">Quantity</div>
+        <div class="col">Price</div>
+      </div>
+      <div class="row mb-2" *ngFor="let email of RazorPayForm.controls.items['controls']; let i=index" [formGroupName]="i">
+        <div class="col">{{i+1}}</div>
+        <div class="col"><input type="text" formControlName="name" class="form-control" placeholder="Name"></div>
+        <div class="col"><input type="number" formControlName="quantity" class="form-control" placeholder="Quantity"></div>
+        <div class="col"><input type="number" formControlName="price" class="form-control" placeholder="Price"></div>
+        <div class="col"><button class="btn btn-danger" (click)="RemoveItem(i)" *ngIf="i!=0"><i
+              class="fa fa-times"></i></button></div>
+      </div>
+    </div>
+
+
+    <button type="button" class="btn btn-secondary btn-sm m-2" (click)="add()">Add Item</button>
+
+    <div class="float-right">
+      <button type="submit" class="btn btn-dark">
+        Razor Pay
+
+        <div class="spinner-border text-primary spinner-border-sm" role="status" *ngIf="RazorPay">
+          &nbsp; <span class="sr-only">Loading...</span>
+        </div>
+      </button>
+    </div>
+  </form>
+</div>
